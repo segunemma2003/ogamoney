@@ -1,10 +1,10 @@
-<?
+<?php
 namespace  App\Traits;
 
 trait ApiTraits
 {
     public function formatData($data = null, bool $status, string $message = "OK")
- 
+
    {
         return ['data' => $data, 'status' => $status, 'message' => $message];
     }

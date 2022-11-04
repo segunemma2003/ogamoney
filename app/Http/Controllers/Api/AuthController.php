@@ -35,7 +35,7 @@ class AuthController extends Controller
                     'errors' => $validateUser->errors()
                 ], 401);
             }
-
+            // var_dump($request->all());
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -57,6 +57,13 @@ class AuthController extends Controller
         }
     }
 
+
+    public function me(Request $request){
+        return response()->json([
+            "status"=>true,
+            "data"=> $request->user()
+        ],200);
+    }
     /**
      * Login The User
      * @param Request $request
