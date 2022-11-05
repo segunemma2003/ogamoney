@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\DeliveryItemController;
+use App\Http\Controllers\CardController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,4 +33,5 @@ Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::apiResource('services', ServiceCategoryController::class);
     Route::apiResource('items', ItemController::class);
     Route::apiResource('delivery-item', DeliveryItemController::class);
+    Route::apiResource('cards', CardController::class);
 });

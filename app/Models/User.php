@@ -12,6 +12,19 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+
+    protected $appends =['cards'];
+
+
+
+    public function linkCard(){
+        return $this->hasMany('App\Models\Card', 'user_id');
+    }
+
+    public function getCardsAttribute(){
+        return $this->linkCard;
+    }
+
     /**
      * The attributes that are mass assignable.
      *

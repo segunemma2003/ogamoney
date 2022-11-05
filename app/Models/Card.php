@@ -9,8 +9,8 @@ class Card extends Model
 {
 
     use HasFactory;
-
-    protected $appends = ['user'];
+    protected $guarded = ['id'];
+    // protected $appends = ['user'];
 
 
 
@@ -18,7 +18,7 @@ class Card extends Model
         return $this->belongsTo("App\Models\User", "user_id");
     }
 
-    public function getUserAttribute() {
+    public function getUser() {
         return $this->users;
     }
 

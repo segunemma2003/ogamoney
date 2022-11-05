@@ -15,7 +15,14 @@ class CardController extends Controller
      */
     public function index()
     {
-        //
+        $cards = Card::with('users')->where("user_id", auth()->user()->id)->get();
+        if(auth()->user()->user_type=="admin"){
+            $deliverys = Card::with('users')->all();
+        }
+        return response()->json([
+            "status"=>true,
+            "data"=>$cards
+        ],200);
     }
 
     /**
@@ -36,7 +43,22 @@ class CardController extends Controller
      */
     public function store(StoreCardRequest $request)
     {
-        //
+        try{
+            $items = $request->all();
+            $data = Card::create($items);
+
+              return response()->json([
+                  "status"=>true,
+                  "data"=>"item successfully created"
+              ],201);
+
+
+          }catch(\Exception $e){
+              return response()->json([
+                  "status"=>false,
+                  "msg"=> $e->getMessage()
+              ],402);
+          }
     }
 
     /**
@@ -47,7 +69,10 @@ class CardController extends Controller
      */
     public function show(Card $card)
     {
-        //
+        return response()->json([
+            "status"=>true,
+            "data"=>$card::with('users')->get()
+        ],200);
     }
 
     /**
@@ -70,7 +95,26 @@ class CardController extends Controller
      */
     public function update(UpdateCardRequest $request, Card $card)
     {
-        //
+        try{
+            $items = $request->all();
+            $data = $card->update($items);
+            if($data){
+              return response()->json([
+                  "status"=>true,
+                  "data"=>"item successfully updated"
+              ],202);
+            }
+
+            return response()->json([
+              "status"=>false,
+              "data"=>"failed to create item"
+          ],422);
+          }catch(\Exception $e){
+              return response()->json([
+                  "status"=>false,
+                  "msg"=>"error occurred"
+              ],402);
+          }
     }
 
     /**
@@ -81,6 +125,10 @@ class CardController extends Controller
      */
     public function destroy(Card $card)
     {
-        //
+        $card->delete();
+        return response()->json([
+            "status"=>true,
+            "item"=>"deleted successfully"
+        ],204);
     }
 }
