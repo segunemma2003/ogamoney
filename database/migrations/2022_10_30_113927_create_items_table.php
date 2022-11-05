@@ -19,6 +19,7 @@ return new class extends Migration
             $table->bigInteger('service_id');
             $table->bigInteger('vendor_id');
             $table->decimal('price',20,0)->default(0.00);
+            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }

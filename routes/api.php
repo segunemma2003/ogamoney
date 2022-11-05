@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\ServiceCategoryController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\DeliveryItemController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,4 +26,7 @@ Route::post('/auth/register', [AuthController::class, 'createUser']);
 Route::post('/auth/login', [AuthController::class, 'loginUser']);
 Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::get('auth/me', [AuthController::class, 'me']);
+    Route::apiResource('services', ServiceCategoryController::class);
+    Route::apiResource('items', ItemController::class);
+    Route::apiResource('delivery/items', DeliveryItemController::class);
 });

@@ -31,10 +31,8 @@ return new class extends Migration
             $table->string("save_errand")->default(0);
             $table->string("delivery_date")->nullable();
             $table->string("delivery_time")->nullable();
-            $table->string("item_id")->nullable();
             $table->string('payment_status')->default("pending");
             $table->string('delivery_status')->default("pending");
-            $table->string("item_name")->nullable();
             $table->string("repeat_schedule")->nullable();
             $table->timestamps();
         });

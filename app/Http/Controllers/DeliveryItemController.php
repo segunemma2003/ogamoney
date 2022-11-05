@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDeliveryItemRequest;
 use App\Http\Requests\UpdateDeliveryItemRequest;
 use App\Models\DeliveryItem;
+use App\Models\DItem;
 
 class DeliveryItemController extends Controller
 {
@@ -15,7 +16,14 @@ class DeliveryItemController extends Controller
      */
     public function index()
     {
-        //
+        $deliverys = DeliveryItem::where("account _id", auth()->user()->id)->get();
+        if(auth()->user()->user_type=="admin"){
+            $deliverys = DeliveryItem::all();
+        }
+        return response()->json([
+            "status"=>true,
+            "data"=>$deliverys
+        ],200);
     }
 
     /**
@@ -36,7 +44,33 @@ class DeliveryItemController extends Controller
      */
     public function store(StoreDeliveryItemRequest $request)
     {
-        //
+        try{
+          $items = $request->items;
+          $delivery = $request->except('items');
+          $data = DeliveryItem::create($delivery);
+          if($data){
+            $id = $data->id;
+            foreach($items as $item){
+                $item['delivery_id']= $id;
+                DItem::create($item);
+
+            }
+            return response()->json([
+                "status"=>true,
+                "data"=>"item successfully created"
+            ],201);
+          }
+
+          return response()->json([
+            "status"=>false,
+            "data"=>"failed to create item"
+        ],422);
+        }catch(\Exception $e){
+            return response()->json([
+                "status"=>false,
+                "msg"=>"error occurred"
+            ],402);
+        }
     }
 
     /**

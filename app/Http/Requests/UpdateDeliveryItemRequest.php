@@ -13,7 +13,7 @@ class UpdateDeliveryItemRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,28 @@ class UpdateDeliveryItemRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "sender_name"=> "required",
+            "receiver_name"=> "required",
+            "sender_phone" => "required",
+            "receiver_phone" => "required",
+            "pickup_address" => "required",
+            "delivery_address" => "required",
+            "save_sender"=> "nullable",
+            "save_receiver"=> "nullable",
+            "right_away"=> "nullable",
+            "schedule_later"=> "nullable",
+            "reoccurrence"=> "nullable",
+            "one_time"=> "nullable",
+            "save_errand"=> "nullable",
+            "delivery_date"=> "required",
+            "delivery_time"=> "required",
+            "payment_status" => "nullable",
+            "delivery_status" => "nullable",
+            "repeat_schedule"=>"nullable",
+            "items.*.item_id"=>"required",
+            "items.*.item_name"=>"required",
+            "items.*.quantity"=>"required",
+            "items.*.total"=>"required",
         ];
     }
 }

@@ -13,7 +13,7 @@ class UpdatePaymentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class UpdatePaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "delivery_id"=>"required",
+            "payment_method"=>"required",
+            "card_id"=>"nullable",
+            "amount"=>"required",
         ];
     }
 }

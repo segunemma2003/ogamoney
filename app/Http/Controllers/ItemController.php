@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Models\Item;
@@ -15,7 +15,11 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        $items = Item::all();
+        return response()->json([
+            "status"=>true,
+            "data"=>$items
+        ],200);
     }
 
     /**
@@ -36,7 +40,27 @@ class ItemController extends Controller
      */
     public function store(StoreItemRequest $request)
     {
-        //
+        // return [];
+        try{
+            $items = $request->all();
+            $data = Item::create($items);
+            if($data){
+              return response()->json([
+                  "status"=>true,
+                  "data"=>"item successfully created"
+              ],201);
+            }
+
+            return response()->json([
+              "status"=>false,
+              "data"=>"failed to create item"
+          ],422);
+          }catch(\Exception $e){
+              return response()->json([
+                  "status"=>false,
+                  "msg"=>"error occurred"
+              ],402);
+          }
     }
 
     /**

@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('delivery_id');
+            $table->string('payment_method')->default('cash');
+            $table->bigInteger('card_id')->nullable();
+            $table->decimal('amount',20,2)->default(0.00);
+            $table->string("transaction_id")->nullable();
+            $table->string("status")->default('pending');
             $table->timestamps();
         });
     }

@@ -15,7 +15,11 @@ class ServiceCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $serviceCategory = ServiceCategory::all();
+        return response()->json([
+            "status"=>true,
+            "data"=>$serviceCategory
+        ],200);
     }
 
     /**

@@ -13,7 +13,7 @@ class StoreDItemRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class StoreDItemRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "item_id"=>  "nullable",
+            "item_name"=>"nullable",
+            "delivery_item_id"=>"required",
+            "quantity"=>"required",
+            "total"=>"required"
         ];
     }
 }

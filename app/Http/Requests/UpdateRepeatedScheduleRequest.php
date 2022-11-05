@@ -13,7 +13,7 @@ class UpdateRepeatedScheduleRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class UpdateRepeatedScheduleRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "delivery_id"=>"required",
+            "interval"=>"required",
+            "days"=>"required",
+            "time"=>"required",
+            "custom_date"=>"required"
         ];
     }
 }

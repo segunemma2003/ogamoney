@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('d_items', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('item_id')->nullable();
-            $table->bigInteger('user_id');
-            $table->bigInteger('order_id')->nullable();
+            $table->bigInteger('item_name')->nullable();
+            $table->bigInteger('delivery_item_id')->nullable();
             $table->string('quantity')->default(0);
             $table->decimal('total',20,2)->default(0);
             $table->timestamps();

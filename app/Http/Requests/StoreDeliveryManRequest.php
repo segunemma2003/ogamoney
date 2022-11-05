@@ -13,7 +13,7 @@ class StoreDeliveryManRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class StoreDeliveryManRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "delivery_id"=>"nullable",
+            "cab_id"=>"nullable",
+            "amount"=>"nullable",
+            "current_location"=>"nullable",
         ];
     }
 }
