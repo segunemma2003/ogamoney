@@ -71,7 +71,21 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        //
+        try{
+
+              return response()->json([
+                  "status"=>true,
+                  "data"=>$item
+              ],200);
+
+
+
+          }catch(\Exception $e){
+              return response()->json([
+                  "status"=>false,
+                  "msg"=>"error occurred"
+              ],402);
+          }
     }
 
     /**
@@ -94,7 +108,26 @@ class ItemController extends Controller
      */
     public function update(UpdateItemRequest $request, Item $item)
     {
-        //
+        try{
+            $items = $request->all();
+            $data = $item->update($items);
+            if($data){
+              return response()->json([
+                  "status"=>true,
+                  "data"=>"item successfully updated"
+              ],202);
+            }
+
+            return response()->json([
+              "status"=>false,
+              "data"=>"failed to create item"
+          ],422);
+          }catch(\Exception $e){
+              return response()->json([
+                  "status"=>false,
+                  "msg"=>"error occurred"
+              ],402);
+          }
     }
 
     /**
@@ -105,6 +138,10 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        $item->delete();
+        return response()->json([
+            "status"=>true,
+            "item"=>"deleted successfully"
+        ],204);
     }
 }

@@ -9,7 +9,7 @@ class Item extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $appends = ['owner'];
+    protected $appends = ['owner','service'];
 
     public static function boot(){
         parent::boot();
@@ -38,5 +38,13 @@ class Item extends Model
 
     public function getOwnerAttribute(){
         return $this->user;
+    }
+
+    public function services(){
+        return $this->belongsTo('App\Models\User', 'vendor_id');
+    }
+
+    public function getServiceAttribute(){
+        return $this->services;
     }
 }

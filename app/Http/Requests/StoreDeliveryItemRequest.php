@@ -3,7 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
+use Illuminate\Contracts\Validation\Validator;
 class StoreDeliveryItemRequest extends FormRequest
 {
     /**
@@ -26,6 +28,8 @@ class StoreDeliveryItemRequest extends FormRequest
         return [
             "sender_name"=> "required",
             "receiver_name"=> "required",
+            "sender_id"=> "required",
+            "receiver_id"=> "nullable",
             "sender_phone" => "required",
             "receiver_phone" => "required",
             "pickup_address" => "required",
@@ -42,10 +46,31 @@ class StoreDeliveryItemRequest extends FormRequest
             "payment_status" => "nullable",
             "delivery_status" => "nullable",
             "repeat_schedule"=>"nullable",
+            "items"=>"present|array",
             "items.*.item_id"=>"required",
             "items.*.item_name"=>"required",
             "items.*.quantity"=>"required",
             "items.*.total"=>"required",
+            "repeat.interval"=>"nullable",
+            "repeat.days"=>"nullable",
+            "repeat.time"=>"nullable",
+            "repeat.custom_date"=>"nullable"
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+
+    {
+
+        throw new HttpResponseException(response()->json([
+
+            'success'   => false,
+
+            'message'   => 'Validation errors',
+
+            'data'      => $validator->errors()
+
+        ]));
+
     }
 }

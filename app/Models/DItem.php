@@ -9,8 +9,25 @@ class DItem extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $appends = ['item', 'order'];
+    protected $appends = ['item'];
 
 
+    public function items(){
+        return $this->belongsTo('App\Models\Item', 'item_id');
+
+    }
+
+    public function getItemAttribute(){
+        return $this->items;
+    }
+
+    // public function orders(){
+    //     return $this->belongsTo('App\Models\DeliveryItem', 'delivery_item_id');
+
+    // }
+
+    // public function getOrderAttribute(){
+    //     return $this->orders;
+    // }
 
 }

@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('delivery_items', function (Blueprint $table) {
             $table->id();
             $table->bigInteger("account_id");
-            $table->bigInteger("sender_name");
-            $table->bigInteger("receiver_name");
+            $table->bigInteger("sender_id")->nullable();
+            $table->bigInteger("receiver_id")->nullable();
+            $table->string("sender_name");
+            $table->string("receiver_name");
             $table->string("sender_phone")->nullable();
             $table->string("receiver_phone")->nullable();
             $table->text("pickup_address")->nullable();

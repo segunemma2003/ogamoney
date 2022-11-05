@@ -16,7 +16,7 @@ class DeliveryItemController extends Controller
      */
     public function index()
     {
-        $deliverys = DeliveryItem::where("account _id", auth()->user()->id)->get();
+        $deliverys = DeliveryItem::where("account_id", auth()->user()->id)->get();
         if(auth()->user()->user_type=="admin"){
             $deliverys = DeliveryItem::all();
         }
@@ -51,13 +51,13 @@ class DeliveryItemController extends Controller
           if($data){
             $id = $data->id;
             foreach($items as $item){
-                $item['delivery_id']= $id;
+                $item['delivery_item_id']= $id;
                 DItem::create($item);
 
             }
             return response()->json([
                 "status"=>true,
-                "data"=>"item successfully created"
+                "data"=>"delivery successfully created"
             ],201);
           }
 
@@ -68,7 +68,7 @@ class DeliveryItemController extends Controller
         }catch(\Exception $e){
             return response()->json([
                 "status"=>false,
-                "msg"=>"error occurred"
+                "msg"=>$e->getMessage()
             ],402);
         }
     }
@@ -81,7 +81,10 @@ class DeliveryItemController extends Controller
      */
     public function show(DeliveryItem $deliveryItem)
     {
-        //
+        return response()->json([
+            "status"=>true,
+            "data"=> $deliveryItem
+        ]);
     }
 
     /**

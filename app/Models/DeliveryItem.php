@@ -9,7 +9,7 @@ class DeliveryItem extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $appends = ['account','sender', 'receiver','items', 'payment','mdelivery'];
+    protected $appends = ['account','sender', 'receiver','allproducts', 'payment','mdelivery'];
 
     public static function boot(){
         parent::boot();
@@ -34,7 +34,7 @@ class DeliveryItem extends Model
     }
 
     public function user(){
-        return $this->belongsTo("App\Models\User", "account_id");
+        return $this->belongsTo("App\Models\User", "account_id", "id");
     }
 
     public function getAccountAttribute(){
@@ -53,21 +53,21 @@ class DeliveryItem extends Model
     }
 
     public function payments(){
-        return $this->hasMany("App\Models\Payment", "delivery_id", "id");
+        return $this->hasMany("App\Models\Payment", "delivery_id");
     }
 
     public function mdeliverys(){
-        return $this->hasOne("App\Models\DeliveryMan", "delivery_id", "id");
+        return $this->hasOne("App\Models\DeliveryMan", "delivery_id");
     }
     public function getReceiverAttribute(){
         return $this->receivers;
     }
-    public function item(){
-        return $this->hasMany("App\Models\DItem", "item_id","id");
+    public function sitem(){
+        return $this->hasMany("App\Models\DItem", "item_id");
     }
 
-    public function getItemsAttribute(){
-        return $this->item;
+    public function getAllproductsAttribute(){
+        return $this->sitem;
     }
     public function getPaymentAttribute(){
         return $this->payments;
