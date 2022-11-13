@@ -28,6 +28,7 @@ Route::fallback(function(){
 
 Route::post('/auth/register', [AuthController::class, 'createUser']);
 Route::post('/auth/login', [AuthController::class, 'loginUser']);
+Route::post('/auth/login/token', [AuthController::class, 'loginWithToken']);
 Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::get('auth/me', [AuthController::class, 'me']);
     Route::apiResource('services', ServiceCategoryController::class);
