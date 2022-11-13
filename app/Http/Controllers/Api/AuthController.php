@@ -25,7 +25,7 @@ class AuthController extends Controller
             [
                 'name' => 'required',
                 'email' => 'nullable|email|unique:users,email',
-                'password' => 'string',
+                'password' => 'string|nullable',
                 'user_token'=>'string|nullable|unique:users,user_token'
             ]);
 
